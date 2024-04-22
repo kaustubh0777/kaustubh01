@@ -22,28 +22,28 @@ const Page = () => {
         </div>
       </div>
       <h1 className='flex justify-center items-center py-5 font-bold text-2xl text-yellow-300'>Technical Skills</h1>
-      <div className='flex flex-wrap-3 gap-4 px-4 py-4 justify-center items-center text-5xl'>
+      <div className='flex flex-wrap justify-center items-center gap-4 px-4 py-4'>
 
-        <TbBrandCpp />
-        <FaJava />
-        <FaPython />
-        <FaHtml5 />
-        <FaCss3 />
-        <SiTailwindcss />
-        <FaBootstrap />
-        <IoLogoJavascript />
-        <SiTypescript />
-        <FaReact />
-        <TbBrandNextjs />
-        <FaNode />
-        <SiSocketdotio />
-        <SiExpress />
-        <TbSql />
-        <SiMongodb />
-        <FaGit />
-        <SiSap />
-        <SiLinuxserver />
-        <FaDocker />
+        <TbBrandCpp className='w-12 h-12' />
+        <FaJava className='w-12 h-12' />
+        <FaPython className='w-12 h-12' />
+        <FaHtml5 className='w-12 h-12' />
+        <FaCss3 className='w-12 h-12' />
+        <SiTailwindcss className='w-12 h-12' />
+        <FaBootstrap className='w-12 h-12' />
+        <IoLogoJavascript className='w-12 h-12' />
+        <SiTypescript className='w-12 h-12' />
+        <FaReact className='w-12 h-12' />
+        <TbBrandNextjs className='w-12 h-12' />
+        <FaNode className='w-12 h-12' />
+        <SiSocketdotio className='w-12 h-12' />
+        <SiExpress className='w-12 h-12' />
+        <TbSql className='w-12 h-12' />
+        <SiMongodb className='w-12 h-12' />
+        <FaGit className='w-12 h-12' />
+        <SiSap className='w-12 h-12' />
+        <SiLinuxserver className='w-12 h-12' />
+        <FaDocker className='w-12 h-12' />
       </div>
       <h1 className='flex justify-center items-center py-5 font-bold text-2xl text-yellow-300'>Work Experience</h1>
       <h1 className=' flex items-center justify-center font-bold text-2xl mt-4 text-green-100'>Tata Steel Ltd. - Software Engineer</h1>
@@ -71,7 +71,7 @@ const Page = () => {
             &rarr; Hands-on experience with Kali Linux and its comprehensive suite of cybersecurity tools.
           </li>
           <li className='mb-2'>
-          &rarr; Explored and tested crucial networking and hacking concepts, effectively applying them in real-world scenarios.
+            &rarr; Explored and tested crucial networking and hacking concepts, effectively applying them in real-world scenarios.
           </li>
         </ul>
       </div>
@@ -86,10 +86,10 @@ const Page = () => {
             &rarr; Cleared <b>TCS NQT</b>
           </li>
           <li className='mb-2'>
-          &rarr; <b>Interview Bit</b> Rank Under Top 10 of My University
+            &rarr; <b>Interview Bit</b> Rank Under Top 10 of My University
           </li>
           <li className='mb-2'>
-          &rarr; <b>Geeks for Geeks</b> Rank Under Top 35 of My University
+            &rarr; <b>Geeks for Geeks</b> Rank Under Top 35 of My University
           </li>
         </ul>
       </div>
