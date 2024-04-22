@@ -22,7 +22,7 @@ const Typewriter = () => {
 
     return (
         <div className='flex justify-center items-center text-3xl'>
-            <h1>I'm a <span ref={ele} className=' text-yellow-500'></span></h1>
+            <h1>I&apos;m a <span ref={ele} className=' text-yellow-500'></span></h1>
         </div>
     )
 }
