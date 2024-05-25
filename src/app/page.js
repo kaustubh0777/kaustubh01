@@ -19,7 +19,7 @@ export default function Home() {
 
         <div className="btn flex justify-center ">
           <Link href="/resume">
-            <button class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+            <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
               Download Resume
             </button>
           </Link>

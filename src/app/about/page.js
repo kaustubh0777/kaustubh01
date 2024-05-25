@@ -60,7 +60,7 @@ const Page = () => {
           </li>
         </ul>
       </div>
-      <hr class="my-12 h-0.5 w-auto border-t-0 dark:bg-white" />
+      <hr className="my-12 h-0.5 w-auto border-t-0 dark:bg-white" />
       <h1 className=' flex items-center justify-center font-bold text-2xl mt-4 text-green-100'>SISTMR Australlia - Research Intern</h1>
       <div className='mx-auto max-w-80 font-thin text-center mt-5 '>
         <ul className='px-4 mt-4'>
@@ -75,7 +75,7 @@ const Page = () => {
           </li>
         </ul>
       </div>
-      <hr class="my-12 h-0.5 w-auto border-t-0 dark:bg-white" />
+      <hr className="my-12 h-0.5 w-auto border-t-0 dark:bg-white" />
       <h1 className=' flex items-center justify-center font-bold text-2xl mt-4 text-green-100'>Achievements</h1>
       <div className='mx-auto max-w-80 font-thin text-center mt-5 mb-16'>
         <ul className='px-4 mt-4'>
