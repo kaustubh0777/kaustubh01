@@ -22,8 +22,12 @@ body {
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    ),
+    url('/assets/bg.avif');
+  background-size: cover; /* Ensure the background image covers the entire body */
+  background-attachment: fixed; /* Make the background image fixed for a parallax effect */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the background image from repeating */
 }
 
 @layer utilities {

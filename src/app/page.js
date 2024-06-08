@@ -6,16 +6,14 @@ import { FaLinkedin } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 import Typewriter from "./(components)/Typewriter";
-import Particless from "./(components)/Particless";
 
 
 export default function Home() {
   return (
     <>
-      <Particless />
       <div className="container  py-7 ">
         <h1 className=" flex justify-center  items-center py-6 font-bold text-6xl">Hello Everyone </h1>
-        <span className="flex justify-center  items-center py-5 font-bold text-4xl text-blue-600 ">This is Kaustubh Pathak </span>
+        <span className="flex justify-center  items-center py-5 font-bold text-3xl ">This is Kaustubh Pathak </span>
 
         <div className="btn flex justify-center ">
           <Link href="/resume">
