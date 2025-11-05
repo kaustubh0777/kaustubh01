@@ -1,54 +1,87 @@
-"use client"
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useState } from 'react';
+"use client";
+
+import Link from "next/link";
+import React, { useState } from "react";
 import { IoReorderThreeOutline } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
-    const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
-    const toggleNavbar = () => {
-        setIsNavbarOpen(!isNavbarOpen);
-    };
+  const toggleNavbar = () => {
+    setIsNavbarOpen(!isNavbarOpen);
+  };
 
-    return (
-        <nav className="border-gray-200 bg-zinc-900 ">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <Link href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                    Kaustubh Pathak
-                </Link>
-                <button
-                    onClick={toggleNavbar}
-                    type="button"
-                    className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm  rounded-lg md:hidden  focus:outline-none  dark:text-gray-400 dark:hover:bg-black  bg-black"
-                    aria-controls="navbar-default"
-                    aria-expanded={isNavbarOpen ? "true" : "false"}
-                >
-                    <IoReorderThreeOutline size={60} />
-                    <span className="sr-only">Open main menu</span>
-                </button>
-                <div className={`w-full md:block md:w-auto ${isNavbarOpen ? "" : "hidden"}`} id="navbar-default">
-                    <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
-                        <li className=' focus:text-red-300'>
-                            <Link href="/" className="block text-neutral-500 hover:text-neutral-700 focus:text-red-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-blue-400 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400 " aria-current="page">Home</Link>
-                        </li>
-                        <li>
-                            <Link href="/about" className="block text-neutral-500 hover:text-neutral-700 focus:text-red-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-blue-400 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400 " aria-current="page">About</Link>
-                        </li>
-                        <li>
-                            <Link href="/projects" className="block text-neutral-500 hover:text-neutral-700 focus:text-red-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-blue-400 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400 " aria-current="page">Project</Link>
-                        </li>
-                        <li>
-                            <Link href="/resume" className="block text-neutral-500 hover:text-neutral-700 focus:text-red-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-blue-400 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400 " aria-current="page">Resume</Link>
-                        </li>
-                        <li>
-                            <Link href="/contact" className="block text-neutral-500 hover:text-neutral-700 focus:text-red-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-blue-400 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400 " aria-current="page">Contact</Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    );
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Projects", href: "/projects" },
+    { name: "Resume", href: "/resume" },
+    { name: "Contact", href: "/contact" },
+  ];
+
+  return (
+    <nav className="fixed top-0 left-0 w-full z-50 bg-black/50 backdrop-blur-xl border-b border-white/10 shadow-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        {/* Brand Logo */}
+        <Link
+          href="/"
+          className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-300 via-orange-400 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+        >
+          Kaustubh Pathak
+        </Link>
+
+        {/* Mobile Toggle Button */}
+        <button
+          onClick={toggleNavbar}
+          className="md:hidden text-white p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+        >
+          <IoReorderThreeOutline size={40} />
+        </button>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center space-x-10">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="relative group text-gray-300 hover:text-yellow-400 font-medium text-lg transition"
+            >
+              {link.name}
+              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-yellow-400 to-pink-500 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isNavbarOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.4 }}
+            className="md:hidden bg-black/90 backdrop-blur-md border-t border-white/10 shadow-inner"
+          >
+            <ul className="flex flex-col items-center space-y-4 py-6">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsNavbarOpen(false)}
+                    className="block text-gray-300 text-lg font-medium hover:text-yellow-400 transition"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
 };
 
 export default Navbar;
