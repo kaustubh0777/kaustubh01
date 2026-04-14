@@ -1,0 +1,56 @@
+Kaustubh Pathak
+/gtbgithub.com/kaustubh0777 |https://www.linkedin.com/in/kaustubhpathak11/ |kaustuap555@gmail.com |/ne
++91-7007880043
+Education
+Medi-Caps University,Indore, India 2019-2023
+Bachelors of Technology in Computer Science and Engineering CGPA: 8.49
+Experience
+Accenture Jan 2025 - Present
+Software Engineer
+•Built anAI-driven automation platformintegratingCollibra Data Quality, Accenture’s Amethyst AI agent, GenAI
+Geneval evaluation framework, and Google Cloud services, enabling conversational execution of enterprise data gover-
+nance workflows.
+•DevelopedPython wrapper servicesintegratingCollibra APIswith the AI agent and deployed scalable services using
+Google Cloud Run and API Gateway.
+•ImplementedGenAI evaluation pipelines using Genevalto assess model responses acrosscorrectness, relevance, and
+contextual reasoning.
+•Designed and implemented10+ SQL-based data quality rulesandCollibra validation jobsensuring reliable datasets
+across multiple business domains.
+•BuiltPython automation scripts integrated with Control-Menabling validation of multiple datasets in a single run,
+reducing manual operational effort.
+•DevelopedPython automation scripts performing SSO authentication and automated sanity checksacross multiple
+datasets simultaneously.
+•Diagnosed and resolved failures acrossBigQuery queries, Kubernetes pods, and data pipelines, improving stability of
+production data validation workflows.
+Tata Steel Jul 2023 - Jan 2024
+Software Engineer
+•Owned backend development for financial systems processing90k+ records/daywith99.9% uptimethrough scalable
+and transaction-safe design.
+•Led development of15+ REST APIswith optimized data contracts and caching strategies, improving dashboard per-
+formance by35%for50+ stakeholders.
+•Optimized performance across12+ database tablesusing indexing and query restructuring, reducing query latency by
+40%.
+•LedSAP integrationenabling real-time synchronization of30k+ transactions/dayacross enterprise systems.
+•Resolved20+ performance bottlenecksthrough profiling and refactoring, improving system responsiveness by30%.
+•Collaborated in anAgile team of 8 engineersdelivering10+ stable production releases.
+Achievements
+AccentureRecognized as "Visionary" for Innovative thinking and foresight
+AccentureRecognized as Tech Week Star for multiple contributions
+GoogleGoogle Cloud Certified – Associate Cloud Engineer
+Interview BitRanked Top 10 among 1,500+ university programmers
+MicrosoftMicrosoft Certified: Azure Data Scientist Associate
+Geeks for GeeksRanked Top 35 among 2,000+ programmers
+Technical Skills
+Programming Languages:Python, C++, JavaScript, TypeScript
+Core CS Fundamentals:Data Structures, Algorithms, OOP, Operating Systems, Computer Networks, DBMS, System Design
+Backend Development:Node.js, Express.js, REST APIs, GraphQL, Microservices, Distributed Systems, OAuth2, JWT
+Frontend Development:HTML, CSS, React.js, Next.js
+Databases & Storage:SQL Server, MongoDB, Redis
+Cloud & DevOps:Google Cloud Platform, Docker, Kubernetes, CI/CD, Linux
+Data Engineering:Kafka, ETL Pipelines, Data Modeling, Data Quality, Data Governance, Collibra Data Quality, BigQuery
+AI / Generative AI:AI Agents, LLM Evaluation, Prompt Engineering, AI Testing Frameworks
+Software Engineering:SDLC, Agile, Unit Testing, Integration Testing, Git, Design Patterns
+Certifications
+Computer Science:Google Cloud Certified – Associate Cloud Engineer, Microsoft Certified: Azure Data Scientist Associate,
+Databricks Certified Data Engineer Associate, Oracle Cloud Infrastructure Certified Generative AI Professional, Cisco Certified
+Network Associate (CCNA)

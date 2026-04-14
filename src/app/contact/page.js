@@ -3,9 +3,8 @@
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import { FaPaperPlane } from "react-icons/fa";
 
-const Page = () => {
+const ContactPage = () => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [from_email, setFromemail] = useState("");
@@ -20,6 +19,12 @@ const Page = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
+
+    if (!YOUR_SERVICE_ID || !YOUR_TEMPLATE_ID || !YOUR_PUBLIC_KEY) {
+      alert("⚠️ EmailJS is not configured. Please set up your environment variables in .env (see .env.example).");
+      return;
+    }
+
     setLoading(true);
 
     emailjs
@@ -29,143 +34,140 @@ const Page = () => {
       .then(
         () => {
           setLoading(false);
-          alert("✅ Message Sent Successfully!");
+          alert("✅ Message Sent Successfully! I'll get back to you shortly.");
           setFromname("");
           setFromemail("");
           setSubject("");
           setMessage("");
         },
         (error) => {
-          console.log("FAILED...", error);
+          console.error("FAILED...", error);
           setLoading(false);
-          alert("❌ Failed to send message. Please try again later.");
+          alert("❌ Failed to send message. Please ensure your EmailJS keys are correct.");
         }
       );
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black flex flex-col items-center justify-center px-4 py-16 text-white overflow-hidden">
-      {/* Glowing Backgrounds */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-yellow-400/10 blur-[120px] rounded-full" />
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-pink-500/10 blur-[120px] rounded-full" />
+    <div className="bg-[var(--bg-primary)] min-h-screen text-white pt-32 pb-20 px-8 selection:bg-[var(--accent)] selection:text-black transition-colors duration-500">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
+        
+        {/* Left Side: Contact Info */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="space-y-12"
+        >
+          <div>
+            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-8">
+              Communication
+            </h2>
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 italic text-gradient leading-[1.1]">
+              Let&apos;s build <span className="text-[var(--accent)]">Something Great.</span>
+            </h1>
+            <p className="text-[var(--text-secondary)] font-light text-xl leading-relaxed max-w-md">
+              Whether it&apos;s a new opportunity, a collaboration, or just a coffee chat — I&apos;m all ears.
+            </p>
+          </div>
 
-      {/* Header */}
-      <motion.h2
-        initial={{ opacity: 0, y: -40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-4xl sm:text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-yellow-300 via-orange-400 to-pink-500 bg-clip-text text-transparent"
-      >
-        Get In Touch
-      </motion.h2>
+          <div className="space-y-6 pt-12 border-t border-white/5">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-[var(--text-dim)] mb-2 font-bold">Email</p>
+              <a href="mailto:kaustuap555@gmail.com" className="text-2xl font-light hover:text-[var(--accent)] transition-colors italic">
+                kaustuap555@gmail.com
+              </a>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-widest text-[var(--text-dim)] mb-2 font-bold">socials</p>
+              <div className="flex space-x-8 text-xl font-light">
+                <a href="https://linkedin.com/in/kaustubhpathak11/" target="_blank" className="hover:text-[var(--accent)] transition-colors">LinkedIn</a>
+                <a href="https://github.com/kaustubh0777" target="_blank" className="hover:text-[var(--accent)] transition-colors">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
-      {/* Contact Form Card */}
-      <motion.form
-        ref={form}
-        onSubmit={sendEmail}
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9 }}
-        className="relative z-10 w-full max-w-2xl bg-white/10 backdrop-blur-md rounded-3xl shadow-lg border border-gray-700/40 p-8 sm:p-10 space-y-6"
-      >
-        <div>
-          <label
-            htmlFor="name"
-            className="block mb-2 text-sm font-semibold text-yellow-300"
+        {/* Right Side: Contact Form */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <form
+            ref={form}
+            onSubmit={sendEmail}
+            className="premium-card"
           >
-            Your Name
-          </label>
-          <input
-            name="from_name"
-            type="text"
-            value={from_name}
-            onChange={(e) => setFromname(e.target.value)}
-            id="name"
-            placeholder="Kaustubh Pathak"
-            className="w-full p-3 rounded-xl border border-gray-600 bg-gray-900/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
-            required
-          />
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div>
+                <label className="text-xs uppercase tracking-widest text-[var(--text-dim)] mb-3 block font-bold">Name</label>
+                <input
+                  name="from_name"
+                  type="text"
+                  value={from_name}
+                  onChange={(e) => setFromname(e.target.value)}
+                  className="w-full bg-white/5 border-b border-white/10 p-3 focus:outline-none focus:border-[var(--accent)] transition-colors font-light"
+                  placeholder="Kaustubh Pathak"
+                  required
+                />
+              </div>
+              <div>
+                <label className="text-xs uppercase tracking-widest text-[var(--text-dim)] mb-3 block font-bold">Email</label>
+                <input
+                  name="from_email"
+                  type="email"
+                  value={from_email}
+                  onChange={(e) => setFromemail(e.target.value)}
+                  className="w-full bg-white/5 border-b border-white/10 p-3 focus:outline-none focus:border-[var(--accent)] transition-colors font-light"
+                  placeholder="contact@example.com"
+                  required
+                />
+              </div>
+            </div>
 
-        <div>
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-semibold text-yellow-300"
-          >
-            Your Email
-          </label>
-          <input
-            name="from_email"
-            type="email"
-            value={from_email}
-            onChange={(e) => setFromemail(e.target.value)}
-            id="email"
-            placeholder="example@gmail.com"
-            className="w-full p-3 rounded-xl border border-gray-600 bg-gray-900/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
-            required
-          />
-        </div>
+            <div className="mb-8">
+              <label className="text-xs uppercase tracking-widest text-[var(--text-dim)] mb-3 block font-bold">Subject</label>
+              <input
+                name="subject"
+                type="text"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                className="w-full bg-white/5 border-b border-white/10 p-3 focus:outline-none focus:border-[var(--accent)] transition-colors font-light"
+                placeholder="How can I help you?"
+                required
+              />
+            </div>
 
-        <div>
-          <label
-            htmlFor="subject"
-            className="block mb-2 text-sm font-semibold text-yellow-300"
-          >
-            Subject
-          </label>
-          <input
-            type="text"
-            name="subject"
-            id="subject"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            placeholder="Let me know how I can help you"
-            className="w-full p-3 rounded-xl border border-gray-600 bg-gray-900/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
-            required
-          />
-        </div>
+            <div className="mb-12">
+              <label className="text-xs uppercase tracking-widest text-[var(--text-dim)] mb-3 block font-bold">Message</label>
+              <textarea
+                name="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                rows="4"
+                className="w-full bg-white/5 border-b border-white/10 p-3 focus:outline-none focus:border-[var(--accent)] transition-colors font-light resize-none"
+                placeholder="Tell me about your project..."
+                required
+              />
+            </div>
 
-        <div>
-          <label
-            htmlFor="message"
-            className="block mb-2 text-sm font-semibold text-yellow-300"
-          >
-            Your Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows="6"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Write your message here..."
-            className="w-full p-3 rounded-xl border border-gray-600 bg-gray-900/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all resize-none"
-            required
-          ></textarea>
-        </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full btn-premium py-4 font-bold tracking-[0.2em] uppercase text-sm"
+            >
+              {loading ? "Sending Message..." : "Send Message"}
+            </button>
+          </form>
+        </motion.div>
+      </div>
 
-        <div className="flex justify-center">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            type="submit"
-            disabled={loading}
-            className={`flex items-center gap-2 px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-orange-500 hover:to-pink-500 focus:ring-4 focus:ring-yellow-400/40 transition-all shadow-lg ${
-              loading ? "opacity-70 cursor-not-allowed" : ""
-            }`}
-          >
-            <FaPaperPlane className="w-5 h-5" />
-            {loading ? "Sending..." : "Send Message"}
-          </motion.button>
-        </div>
-      </motion.form>
-
-      {/* Footer */}
-      <footer className="mt-10 text-gray-400 text-sm text-center">
-        © 2025 Kaustubh Pathak | Built with Next.js 💫
+      <footer className="mt-40 text-center text-[var(--text-dim)] text-xs uppercase tracking-widest font-medium border-t border-white/5 pt-12 pb-8">
+        © {new Date().getFullYear()} Kaustubh Pathak — Performance Driven Engineering
       </footer>
     </div>
   );
 };
 
-export default Page;
+export default ContactPage;
+

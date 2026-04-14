@@ -1,9 +1,9 @@
 
 const words=[
+    'Software Engineer',
+    'GenAI Specialist',
     'Full Stack Developer',
-    'Software Developer',
-    'Frontend Developer',
-    'Backend Developer'
+    'Cloud Architect'
 ]
 
 export default words;

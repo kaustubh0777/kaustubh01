@@ -4,66 +4,69 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaDownload, FaExpand } from "react-icons/fa";
 
-const Page = () => {
+const ResumePage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-white flex flex-col items-center py-12 px-4 sm:px-8">
-      {/* Header */}
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        className="text-4xl sm:text-5xl font-extrabold text-center bg-gradient-to-r from-yellow-300 via-orange-400 to-pink-500 bg-clip-text text-transparent drop-shadow-lg mb-8"
-      >
-        Resume
-      </motion.h2>
+    <div className="min-h-screen bg-[var(--bg-primary)] text-white pt-32 pb-20 px-8 selection:bg-[var(--accent)] selection:text-black transition-colors duration-500">
+      <div className="max-w-7xl mx-auto flex flex-col items-center">
+        
+        {/* Header */}
+        <header className="mb-16 text-center">
+          <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-6">
+            Curriculum Vitae
+          </h2>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter italic">
+            Professional <span className="text-[var(--accent)]">Resume.</span>
+          </h1>
+        </header>
 
-      {/* Action Buttons */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        className="flex flex-wrap justify-center gap-4 mb-8"
-      >
-        <a
-          href="/resume.pdf"
-          download
-          className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl shadow-lg hover:scale-105 hover:shadow-yellow-400/40 transition-all duration-300 font-medium"
+        {/* Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="flex flex-wrap justify-center gap-6 mb-16"
         >
-          <FaDownload className="w-5 h-5" /> Download Resume
-        </a>
+          <a
+            href="/resume.pdf"
+            download
+            className="btn-premium flex items-center gap-3 py-4"
+          >
+            <FaDownload size={16} /> Download Copy
+          </a>
 
-        <a
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl shadow-lg hover:scale-105 hover:shadow-indigo-400/40 transition-all duration-300 font-medium"
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-4 border border-white/20 rounded-full hover:bg-white/5 transition-all duration-300 font-medium tracking-widest uppercase text-xs flex items-center gap-3"
+          >
+            <FaExpand size={16} /> View Fullscreen
+          </a>
+        </motion.div>
+
+        {/* Resume Viewer */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="w-full max-w-5xl premium-card p-2 sm:p-4 bg-white/5 mb-20"
         >
-          <FaExpand className="w-5 h-5" /> View Fullscreen
-        </a>
-      </motion.div>
+          <div className="relative w-full aspect-[8.5/11] overflow-hidden rounded-xl">
+            <iframe
+              src="/resume.pdf"
+              title="Kaustubh Pathak Resume"
+              className="absolute inset-0 w-full h-full rounded-lg border-none opacity-90 hover:opacity-100 transition-opacity duration-500"
+            ></iframe>
+          </div>
+        </motion.div>
 
-      {/* Resume Viewer Container */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7 }}
-        className="w-full max-w-5xl bg-white/10 border border-gray-700 rounded-2xl shadow-xl backdrop-blur-md p-4 sm:p-6"
-      >
-        <div className="relative w-full aspect-[8.5/11] sm:aspect-[16/9] overflow-hidden rounded-xl">
-          <iframe
-            src="/resume.pdf"
-            title="Kaustubh Pathak Resume"
-            className="absolute inset-0 w-full h-full rounded-xl border-none"
-          ></iframe>
-        </div>
-      </motion.div>
-
-      {/* Footer */}
-      <footer className="mt-10 text-sm text-gray-400 text-center">
-        © 2025 Kaustubh Pathak | Built with Next.js 💫
-      </footer>
+        <footer className="mt-40 text-center text-[var(--text-dim)] text-xs uppercase tracking-widest font-medium border-t border-white/5 pt-12 w-full">
+          © {new Date().getFullYear()} Kaustubh Pathak — Performance Driven Engineering
+        </footer>
+      </div>
     </div>
   );
 };
 
-export default Page;
+export default ResumePage;
+

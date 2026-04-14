@@ -2,36 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;700&display=swap');
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --accent: #00f2ff;
+  --accent-muted: rgba(0, 242, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-dim: #606060;
+  --border-color: rgba(255, 255, 255, 0.1);
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    ),
-    url('/assets/bg.avif');
-  background-size: cover; /* Ensure the background image covers the entire body */
-  background-attachment: fixed; /* Make the background image fixed for a parallax effect */
-  background-position: center; /* Center the background image */
-  background-repeat: no-repeat; /* Prevent the background image from repeating */
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer components {
+  .premium-card {
+    @apply bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-2xl p-6 transition-all duration-300 hover:border-[var(--accent)] hover:shadow-[0_0_20px_rgba(0,242,255,0.05)];
+  }
+
+  .glass-nav {
+    @apply sticky top-0 z-50 bg-black/80 backdrop-blur-md border-b border-[var(--border-color)];
+  }
+
+  .btn-premium {
+    @apply px-8 py-3 bg-white text-black font-medium rounded-full transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-[var(--accent)] hover:text-black;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-white to-[var(--text-secondary)] bg-clip-text text-transparent;
   }
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
