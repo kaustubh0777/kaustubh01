@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const ContactPage = () => {
@@ -11,41 +10,49 @@ const ContactPage = () => {
   const [from_name, setFromname] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const form = useRef();
+  const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
-  const YOUR_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-  const YOUR_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-  const YOUR_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
 
-    if (!YOUR_SERVICE_ID || !YOUR_TEMPLATE_ID || !YOUR_PUBLIC_KEY) {
-      alert("⚠️ EmailJS is not configured. Please set up your environment variables in .env (see .env.example).");
+    if (!WEB3FORMS_KEY) {
+      alert("⚠️ Web3Forms is not configured. Please set up your environment variables in .env and RESTART your dev server.");
       return;
     }
 
     setLoading(true);
 
-    emailjs
-      .sendForm(YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, form.current, {
-        publicKey: YOUR_PUBLIC_KEY,
-      })
-      .then(
-        () => {
-          setLoading(false);
-          alert("✅ Message Sent Successfully! I'll get back to you shortly.");
-          setFromname("");
-          setFromemail("");
-          setSubject("");
-          setMessage("");
+    const formData = new FormData(e.target);
+    formData.append("access_key", WEB3FORMS_KEY);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        (error) => {
-          console.error("FAILED...", error);
-          setLoading(false);
-          alert("❌ Failed to send message. Please ensure your EmailJS keys are correct.");
-        }
-      );
+        body: JSON.stringify(Object.fromEntries(formData)),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setLoading(false);
+        alert("✅ Message Sent Successfully! I'll get back to you shortly.");
+        setFromname("");
+        setFromemail("");
+        setSubject("");
+        setMessage("");
+      } else {
+        setLoading(false);
+        alert(`❌ Failed to send message: ${result.message || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error("FAILED...", error);
+      setLoading(false);
+      alert("❌ Failed to send message. Please check your internet connection.");
+    }
   };
 
   return (
@@ -59,10 +66,10 @@ const ContactPage = () => {
           className="space-y-12"
         >
           <div>
-            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-8">
+            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-8 glass-text">
               Communication
             </h2>
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 italic text-gradient leading-[1.1]">
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 italic leading-[1.1] shimmer-text">
               Let&apos;s build <span className="text-[var(--accent)]">Something Great.</span>
             </h1>
             <p className="text-[var(--text-secondary)] font-light text-xl leading-relaxed max-w-md">
@@ -72,13 +79,13 @@ const ContactPage = () => {
 
           <div className="space-y-6 pt-12 border-t border-white/5">
             <div>
-              <p className="text-xs uppercase tracking-widest text-[var(--text-dim)] mb-2 font-bold">Email</p>
+              <p className="text-xs uppercase tracking-widest text-[var(--text-dim)] mb-2 font-bold glass-text">Email</p>
               <a href="mailto:kaustuap555@gmail.com" className="text-2xl font-light hover:text-[var(--accent)] transition-colors italic">
                 kaustuap555@gmail.com
               </a>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-widest text-[var(--text-dim)] mb-2 font-bold">socials</p>
+              <p className="text-xs uppercase tracking-widest text-[var(--text-dim)] mb-2 font-bold glass-text">socials</p>
               <div className="flex space-x-8 text-xl font-light">
                 <a href="https://linkedin.com/in/kaustubhpathak11/" target="_blank" className="hover:text-[var(--accent)] transition-colors">LinkedIn</a>
                 <a href="https://github.com/kaustubh0777" target="_blank" className="hover:text-[var(--accent)] transition-colors">GitHub</a>
@@ -94,7 +101,6 @@ const ContactPage = () => {
           transition={{ delay: 0.2 }}
         >
           <form
-            ref={form}
             onSubmit={sendEmail}
             className="premium-card"
           >
@@ -154,7 +160,7 @@ const ContactPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-premium py-4 font-bold tracking-[0.2em] uppercase text-sm"
+              className="w-full btn-premium py-4 font-bold tracking-[0.2em] uppercase text-sm shine-effect"
             >
               {loading ? "Sending Message..." : "Send Message"}
             </button>

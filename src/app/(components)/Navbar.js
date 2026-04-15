@@ -29,15 +29,15 @@ const Navbar = () => {
 
   return (
     <nav 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-black/80 backdrop-blur-lg py-4 border-b border-white/5" : "bg-transparent py-6"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        scrolled ? "bg-black/60 backdrop-blur-xl py-4 border-b border-white/5 shadow-2xl shadow-black/50" : "bg-transparent py-8"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-8">
         {/* Brand Logo */}
         <Link
           href="/"
-          className="text-xl font-bold tracking-tighter text-white hover:opacity-80 transition-opacity"
+          className="text-xl font-bold tracking-tighter text-white hover:opacity-80 transition-opacity glass-text"
         >
           KAUSTUBH <span className="text-[var(--text-dim)] font-light">PATHAK</span>
         </Link>
@@ -48,13 +48,13 @@ const Navbar = () => {
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-medium tracking-wide text-[var(--text-secondary)] hover:text-white transition-colors"
+              className="text-sm font-medium tracking-wide text-[var(--text-secondary)] hover:text-white transition-colors glass-text"
             >
               {link.name}
             </Link>
           ))}
           <Link href="/resume">
-            <button className="text-xs px-6 py-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all duration-300 font-medium tracking-widest uppercase">
+            <button className="text-xs px-6 py-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all duration-500 font-medium tracking-widest uppercase shine-effect">
               Resume
             </button>
           </Link>

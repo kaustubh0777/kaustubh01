@@ -88,7 +88,7 @@ const ProjectsPage = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="text-center z-10"
           >
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 italic text-gradient leading-[1.1]">
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 italic leading-[1.1] shimmer-text">
               Portfolio <span className="text-[var(--accent)]">Archive.</span>
             </h1>
             <p className="max-w-xl mx-auto text-xl text-[var(--text-secondary)] font-light leading-relaxed">
@@ -120,7 +120,7 @@ const ProjectsPage = () => {
               </div>
 
               <div className="flex flex-col flex-grow">
-                <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-[var(--accent)] mb-2 italic">
+                <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-[var(--accent)] mb-2 italic glass-text">
                   {project.type}
                 </p>
                 <h3 className="text-xl font-medium mb-6 group-hover:text-white transition-colors">

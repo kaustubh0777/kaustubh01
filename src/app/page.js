@@ -63,10 +63,10 @@ export default function Home() {
           transition={{ duration: 1 }}
           className="text-center z-10"
         >
-          <span className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] mb-6 block font-medium">
+          <span className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] mb-6 block font-medium glass-text">
             Based in India — Working Globally
           </span>
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-4 text-gradient leading-[1.1]">
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-4 leading-[1.1] shimmer-text">
             KAUSTUBH PATHAK
           </h1>
           <div className="h-12">
@@ -79,10 +79,10 @@ export default function Home() {
             transition={{ delay: 1, duration: 1 }}
             className="mt-12 flex items-center justify-center space-x-6"
           >
-            <Link href="/projects" className="btn-premium">
+            <Link href="/projects" className="btn-premium shine-effect">
               View Work
             </Link>
-            <Link href="/contact" className="text-sm font-medium hover:text-[var(--accent)] transition-colors tracking-widest uppercase">
+            <Link href="/contact" className="text-sm font-medium hover:text-[var(--accent)] transition-colors tracking-widest uppercase glass-text">
               Get in touch
             </Link>
           </motion.div>
@@ -102,7 +102,7 @@ export default function Home() {
       <section id="experience" className="max-w-7xl mx-auto px-8 py-32">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-4 sticky top-32">
+            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-4 sticky top-32 glass-text">
               Career Path
             </h2>
             <p className="text-2xl font-light text-[var(--text-secondary)] leading-relaxed">
@@ -142,7 +142,7 @@ export default function Home() {
       <section className="bg-[var(--bg-secondary)] border-y border-white/5 py-32 px-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-24 text-center">
-            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-8">
+            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-8 glass-text">
               Technical Stack
             </h2>
             <h3 className="text-5xl font-bold tracking-tight">Tools of the Trade</h3>
@@ -151,7 +151,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {skills.map((skill, idx) => (
               <div key={idx} className="premium-card">
-                <h4 className="text-[var(--accent)] text-xs uppercase tracking-[0.2em] font-bold mb-6 italic">{skill.category}</h4>
+                <h4 className="text-[var(--accent)] text-xs uppercase tracking-[0.2em] font-bold mb-6 italic glass-text">{skill.category}</h4>
                 <div className="flex flex-wrap gap-2">
                   {skill.items.map((item, iIdx) => (
                     <span key={iIdx} className="text-sm font-light text-[var(--text-secondary)] py-1 px-3 bg-white/5 rounded-md border border-white/5">
@@ -176,7 +176,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="premium-card group"
             >
-              <h4 className="text-[var(--accent)] text-[10px] uppercase tracking-[0.2em] font-bold mb-4 italic">
+              <h4 className="text-[var(--accent)] text-[10px] uppercase tracking-[0.2em] font-bold mb-4 italic glass-text">
                 {award.organization}
               </h4>
               <h3 className="text-xl font-medium mb-3 group-hover:text-white transition-colors">{award.title}</h3>
@@ -190,7 +190,7 @@ export default function Home() {
 
       {/* Certifications & Ecosystem */}
       <section className="max-w-7xl mx-auto px-8 py-32 border-t border-white/5">
-        <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-16 text-center">
+        <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-16 text-center glass-text">
           Professional Stack & Ecosystem
         </h2>
         
@@ -215,7 +215,7 @@ export default function Home() {
               </div>
               <div>
                 <h4 className="text-base font-medium text-white group-hover:text-[var(--accent)] transition-colors duration-500">{cert.title}</h4>
-                <p className="text-xs uppercase tracking-widest text-[var(--text-dim)] mt-1 font-bold">{cert.org}</p>
+                <p className="text-xs uppercase tracking-widest text-[var(--text-dim)] mt-1 font-bold glass-text">{cert.org}</p>
               </div>
             </motion.div>
           ))}
@@ -244,4 +244,3 @@ export default function Home() {
     </main>
   );
 }
-

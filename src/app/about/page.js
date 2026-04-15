@@ -13,7 +13,7 @@ const AboutPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-3xl"
         >
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 italic text-gradient leading-[1.1]">
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 italic leading-[1.1] shimmer-text">
             Engineering with <span className="text-[var(--accent)]">Precision.</span>
           </h1>
           <p className="text-xl text-[var(--text-secondary)] font-light leading-relaxed">
@@ -28,7 +28,7 @@ const AboutPage = () => {
       <section className="max-w-7xl mx-auto mb-40">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           <div>
-            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-12">
+            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-12 glass-text">
               Education
             </h2>
             <div className="premium-card">
@@ -40,7 +40,7 @@ const AboutPage = () => {
           </div>
 
           <div>
-            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-12">
+            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-12 glass-text">
               Technical Creed
             </h2>
             <div className="space-y-8 text-[var(--text-secondary)] font-light leading-relaxed">
@@ -57,7 +57,7 @@ const AboutPage = () => {
 
       {/* Detailed Experience Timeline */}
       <section className="max-w-7xl mx-auto mb-40">
-        <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-20 text-center">
+        <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-20 text-center glass-text">
           Career Trajectory
         </h2>
         

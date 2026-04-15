@@ -11,10 +11,10 @@ const ResumePage = () => {
         
         {/* Header */}
         <header className="mb-16 text-center">
-          <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-6">
+          <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-6 glass-text">
             Curriculum Vitae
           </h2>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter italic">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter italic shimmer-text">
             Professional <span className="text-[var(--accent)]">Resume.</span>
           </h1>
         </header>
@@ -29,7 +29,7 @@ const ResumePage = () => {
           <a
             href="/resume.pdf"
             download
-            className="btn-premium flex items-center gap-3 py-4"
+            className="btn-premium flex items-center gap-3 py-4 shine-effect"
           >
             <FaDownload size={16} /> Download Copy
           </a>
