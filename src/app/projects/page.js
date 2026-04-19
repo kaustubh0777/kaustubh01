@@ -80,7 +80,7 @@ const projects = [
 
 const ProjectsPage = () => {
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] text-white pt-32 pb-20 px-8 selection:bg-[var(--accent)] selection:text-black transition-colors duration-500">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] pt-32 pb-20 px-8 selection:bg-[var(--accent)] selection:text-white transition-colors duration-500">
       <div className="max-w-7xl mx-auto">
         <header className="mb-20">
           <motion.div
@@ -123,7 +123,7 @@ const ProjectsPage = () => {
                 <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-[var(--accent)] mb-2 italic glass-text">
                   {project.type}
                 </p>
-                <h3 className="text-xl font-medium mb-6 group-hover:text-white transition-colors">
+                <h3 className="text-xl font-medium mb-6 group-hover:text-[var(--text-primary)] transition-colors">
                   {project.title}
                 </h3>
 
@@ -132,9 +132,9 @@ const ProjectsPage = () => {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-mono text-[var(--text-dim)] hover:text-white flex items-center gap-2 transition-colors"
+                    className="text-xs font-mono text-[var(--text-dim)] hover:text-[var(--text-primary)] flex items-center gap-2 transition-colors"
                   >
-                    <FaGithub size={14} /> GitHub
+                    <FaGithub size={14} className="premium-icon" /> GitHub
                   </a>
                   {project.demo && (
                     <a
@@ -143,7 +143,7 @@ const ProjectsPage = () => {
                       rel="noopener noreferrer"
                       className="text-xs font-mono text-[var(--text-dim)] hover:text-[var(--accent)] flex items-center gap-2 transition-colors"
                     >
-                      <FaExternalLinkAlt size={12} /> Live Site
+                      <FaExternalLinkAlt size={12} className="premium-icon" /> Live Site
                     </a>
                   )}
                 </div>

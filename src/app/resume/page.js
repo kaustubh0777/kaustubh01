@@ -6,7 +6,7 @@ import { FaDownload, FaExpand } from "react-icons/fa";
 
 const ResumePage = () => {
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] text-white pt-32 pb-20 px-8 selection:bg-[var(--accent)] selection:text-black transition-colors duration-500">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] pt-32 pb-20 px-8 selection:bg-[var(--accent)] selection:text-white transition-colors duration-500">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         
         {/* Header */}

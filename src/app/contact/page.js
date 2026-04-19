@@ -56,7 +56,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="bg-[var(--bg-primary)] min-h-screen text-white pt-32 pb-20 px-8 selection:bg-[var(--accent)] selection:text-black transition-colors duration-500">
+    <div className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] pt-32 pb-20 px-8 selection:bg-[var(--accent)] selection:text-white transition-colors duration-500">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
         
         {/* Left Side: Contact Info */}

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const AboutPage = () => {
   return (
-    <div className="bg-[var(--bg-primary)] text-white min-h-screen selection:bg-[var(--accent)] selection:text-black pt-32 pb-20 px-8">
+    <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen selection:bg-[var(--accent)] selection:text-white pt-32 pb-20 px-8">
       {/* Hero */}
       <section className="max-w-7xl mx-auto mb-32">
         <motion.div
@@ -35,7 +35,7 @@ const AboutPage = () => {
               <p className="text-[var(--accent)] font-mono text-sm mb-2">2019 — 2023</p>
               <h3 className="text-2xl font-medium mb-2">Medi-Caps University</h3>
               <p className="text-[var(--text-secondary)] font-light">B.Tech in Computer Science & Engineering</p>
-              <p className="text-white font-medium mt-4 italic text-sm">CGPA: 8.49 / 10.0</p>
+              <p className="text-[var(--text-primary)] font-medium mt-4 italic text-sm">CGPA: 8.49 / 10.0</p>
             </div>
           </div>
 
@@ -45,10 +45,10 @@ const AboutPage = () => {
             </h2>
             <div className="space-y-8 text-[var(--text-secondary)] font-light leading-relaxed">
               <p>
-                My engineering philosophy is simple: <span className="text-white">Build for scale, design for clarity.</span> I specialize in creating architectural foundations that support massive data volume while maintaining low latency and high availability.
+                My engineering philosophy is simple: <span className="text-[var(--text-primary)]">Build for scale, design for clarity.</span> I specialize in creating architectural foundations that support massive data volume while maintaining low latency and high availability.
               </p>
               <p>
-                From leading backend development for high-stakes financial systems to pioneering Generative AI integration in enterprise governance, I focus on delivering <span className="text-white">measurable performance gains</span> and automated operational efficiency.
+                From leading backend development for high-stakes financial systems to pioneering Generative AI integration in enterprise governance, I focus on delivering <span className="text-[var(--text-primary)]">measurable performance gains</span> and automated operational efficiency.
               </p>
             </div>
           </div>

@@ -1,12 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
 import { SiLeetcode, SiGooglecloud, SiMicrosoftazure, SiDatabricks, SiOracle } from "react-icons/si";
 import Typewriter from "./(components)/Typewriter";
+import { playClickSound, playHoverSound } from "../utils/audio";
 
 export default function Home() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   const experiences = [
     {
       company: "Accenture",
@@ -52,82 +64,118 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-[var(--bg-primary)] selection:bg-[var(--accent)] selection:text-black">
+    <main ref={containerRef} className="min-h-screen bg-[var(--bg-primary)] selection:bg-[var(--accent)] selection:text-white transition-colors duration-300">
+      {/* Background Soft Pattern Elements with Parallax */}
+      <motion.div 
+        style={{ y: backgroundY }}
+        className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+      >
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-[var(--accent)]/5 rounded-full blur-[100px]" />
+        <div className="absolute top-[40%] -left-40 w-[500px] h-[500px] bg-[var(--text-secondary)]/5 rounded-full blur-[100px]" />
+      </motion.div>
+
       {/* Hero Section */}
-      <section className="h-screen flex flex-col items-center justify-center px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,242,255,0.03)_0%,transparent_70%)] pointer-events-none" />
-        
+      <section className="h-screen flex flex-col items-center justify-center px-8 relative z-10 overflow-hidden">
         <motion.div
+          style={{ y: textY, opacity }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-center z-10"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center z-10 max-w-5xl"
         >
-          <span className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] mb-6 block font-medium glass-text">
-            Based in India — Working Globally
-          </span>
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-4 leading-[1.1] shimmer-text">
-            KAUSTUBH PATHAK
-          </h1>
-          <div className="h-12">
+          <motion.span 
+             initial={{ opacity: 0, scale: 0.95 }}
+             animate={{ opacity: 1, scale: 1 }}
+             transition={{ duration: 1.2, delay: 0.2 }}
+             className="text-sm font-bold uppercase tracking-[0.3em] text-[var(--accent)] mb-8 block"
+          >
+            Based in India • Working Globally
+          </motion.span>
+          <motion.h1 
+             initial={{ opacity: 0, y: 50 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+             className="text-6xl sm:text-7xl md:text-[8rem] font-black tracking-tighter mb-4 leading-none text-[var(--text-primary)] glass-shimmer"
+          >
+            KAUSTUBH <br className="md:hidden" />PATHAK
+          </motion.h1>
+          <motion.div 
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             transition={{ duration: 1, delay: 0.8 }}
+             className="h-10 md:h-12 mt-6 text-xl md:text-3xl text-[var(--text-secondary)] font-medium tracking-tight"
+          >
             <Typewriter />
-          </div>
+          </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 1 }}
-            className="mt-12 flex items-center justify-center space-x-6"
+            className="mt-16 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6"
           >
-            <Link href="/projects" className="btn-premium shine-effect">
-              View Work
+            <Link href="/projects" onClick={playClickSound} onMouseEnter={playHoverSound} className="btn-premium w-full sm:w-auto text-center py-4">
+              Explore My Work
             </Link>
-            <Link href="/contact" className="text-sm font-medium hover:text-[var(--accent)] transition-colors tracking-widest uppercase glass-text">
+            <Link href="/contact" onClick={playClickSound} onMouseEnter={playHoverSound} className="btn-outline w-full sm:w-auto text-center py-4">
               Get in touch
             </Link>
           </motion.div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 2 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 0.5, height: 64 }}
+          transition={{ delay: 1.5, duration: 1.5, ease: "easeInOut" }}
+          style={{ opacity }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center origin-top overflow-hidden"
         >
-          <div className="w-px h-12 bg-gradient-to-b from-transparent to-white/20" />
+          <div className="w-px h-16 bg-gradient-to-b from-transparent via-[var(--text-dim)] to-transparent" />
         </motion.div>
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="max-w-7xl mx-auto px-8 py-32">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16">
-          <div className="md:col-span-4">
-            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-4 sticky top-32 glass-text">
-              Career Path
-            </h2>
-            <p className="text-2xl font-light text-[var(--text-secondary)] leading-relaxed">
-              Engineering scalable systems and pioneering GenAI solutions at enterprise level.
-            </p>
+      <section id="experience" className="max-w-7xl mx-auto px-8 py-32 z-10 relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+          <div className="lg:col-span-5">
+            <div className="sticky top-32">
+              <h2 className="text-sm uppercase tracking-[0.2em] text-[var(--accent)] font-bold mb-6">
+                Career Path
+              </h2>
+              <h3 className="text-5xl md:text-6xl font-bold tracking-tighter text-[var(--text-primary)] mb-8 leading-tight glass-shimmer">
+                Engineering at Scale.
+              </h3>
+              <p className="text-xl text-[var(--text-secondary)] leading-relaxed font-medium">
+                Designing scalable systems and pioneering GenAI solutions at an enterprise level.
+              </p>
+            </div>
           </div>
           
-          <div className="md:col-span-8 space-y-24">
+          <div className="lg:col-span-7 space-y-12">
             {experiences.map((exp, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="premium-card group"
               >
-                <div className="flex justify-between items-baseline mb-6">
-                  <h3 className="text-3xl font-medium group-hover:text-[var(--accent)] transition-colors">{exp.company}</h3>
-                  <span className="text-sm font-mono text-[var(--text-dim)]">{exp.period}</span>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-6">
+                  <h3 className="text-3xl lg:text-4xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors duration-300">
+                    {exp.company}
+                  </h3>
+                  <span className="text-sm font-medium uppercase tracking-widest text-[var(--text-dim)] mt-2 sm:mt-0">
+                    {exp.period}
+                  </span>
                 </div>
-                <p className="text-[var(--accent)] text-xs uppercase tracking-widest mb-6 font-bold">{exp.role}</p>
-                <ul className="space-y-4">
+                <p className="text-xl font-semibold text-[var(--text-secondary)] mb-8 pb-8 border-b border-[var(--border-color)]">
+                  {exp.role}
+                </p>
+                <ul className="space-y-5">
                   {exp.points.map((point, pIdx) => (
-                    <li key={pIdx} className="text-[var(--text-secondary)] font-light leading-relaxed flex items-start">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] mt-2 mr-4 shrink-0 transition-transform group-hover:scale-150" />
+                    <li key={pIdx} className="text-[var(--text-secondary)] text-base font-medium leading-relaxed flex items-start">
+                      <span className="w-1.5 h-1.5 mt-2.5 rounded-full bg-[var(--text-dim)] group-hover:bg-[var(--accent)] mr-5 shrink-0 transition-colors duration-300" />
                       {point}
                     </li>
                   ))}
@@ -138,49 +186,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Skills Grid */}
-      <section className="bg-[var(--bg-secondary)] border-y border-white/5 py-32 px-8">
+      {/* Skills Section */}
+      <section className="bg-[var(--bg-secondary)] border-y border-[var(--border-color)] py-32 px-8 z-10 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-24 text-center">
-            <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-8 glass-text">
-              Technical Stack
-            </h2>
-            <h3 className="text-5xl font-bold tracking-tight">Tools of the Trade</h3>
+          <div className="mb-24 md:flex justify-between items-end">
+            <div className="max-w-2xl">
+              <h2 className="text-sm uppercase tracking-[0.2em] text-[var(--accent)] font-bold mb-6">
+                Technical Stack
+              </h2>
+              <h3 className="text-5xl md:text-6xl font-bold tracking-tighter text-[var(--text-primary)] glass-shimmer">
+                Tools of the Trade.
+              </h3>
+            </div>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {skills.map((skill, idx) => (
-              <div key={idx} className="premium-card">
-                <h4 className="text-[var(--accent)] text-xs uppercase tracking-[0.2em] font-bold mb-6 italic glass-text">{skill.category}</h4>
-                <div className="flex flex-wrap gap-2">
+              <motion.div 
+                key={idx} 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="premium-card group"
+              >
+                <h4 className="text-2xl font-bold text-[var(--text-primary)] mb-8">
+                  {skill.category}
+                </h4>
+                <div className="flex flex-wrap gap-3">
                   {skill.items.map((item, iIdx) => (
-                    <span key={iIdx} className="text-sm font-light text-[var(--text-secondary)] py-1 px-3 bg-white/5 rounded-md border border-white/5">
+                    <span 
+                      key={iIdx} 
+                      className="text-md font-medium text-[var(--text-primary)] py-2 px-6 bg-[var(--bg-primary)] rounded-full border border-[var(--border-color)] group-hover:border-[var(--accent)]/30 transition-all duration-300 hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] cursor-default"
+                    >
                       {item}
                     </span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Recognition Section */}
-      <section className="max-w-7xl mx-auto px-8 py-32 border-t border-white/5">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <section className="max-w-7xl mx-auto px-8 py-32 z-10 relative">
+        <div className="text-center mb-24">
+          <h2 className="text-sm uppercase tracking-[0.2em] text-[var(--accent)] font-bold mb-4">Recognitions</h2>
+          <h3 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] tracking-tighter glass-shimmer">Awards & Impact</h3>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {awards.map((award, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="premium-card group"
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="premium-card flex flex-col justify-center text-center items-center group"
             >
-              <h4 className="text-[var(--accent)] text-[10px] uppercase tracking-[0.2em] font-bold mb-4 italic glass-text">
+              <h4 className="text-[var(--accent)] text-xs uppercase tracking-[0.2em] font-bold mb-6">
                 {award.organization}
               </h4>
-              <h3 className="text-xl font-medium mb-3 group-hover:text-white transition-colors">{award.title}</h3>
-              <p className="text-sm font-light text-[var(--text-dim)] leading-relaxed">
+              <h3 className="text-2xl font-bold mb-4 text-[var(--text-primary)]">{award.title}</h3>
+              <p className="text-md text-[var(--text-secondary)] font-medium leading-relaxed max-w-sm">
                 {award.description}
               </p>
             </motion.div>
@@ -188,56 +257,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Certifications & Ecosystem */}
-      <section className="max-w-7xl mx-auto px-8 py-32 border-t border-white/5">
-        <h2 className="text-xs uppercase tracking-[0.4em] text-[var(--text-dim)] font-medium mb-16 text-center glass-text">
-          Professional Stack & Ecosystem
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            { title: "Associate Cloud Engineer", org: "Google Cloud", icon: <SiGooglecloud size={24} /> },
-            { title: "Azure Data Scientist Associate", org: "Microsoft", icon: <SiMicrosoftazure size={24} /> },
-            { title: "Data Engineer Associate", org: "Databricks", icon: <SiDatabricks size={24} /> },
-            { title: "Generative AI Professional", org: "Oracle Cloud", icon: <SiOracle size={24} /> },
-            { title: "Certified Network Associate", org: "Cisco (CCNA)", icon: <div className="text-[10px] font-bold">CCNA</div> },
-            { title: "Top 10 University Programmer", org: "InterviewBit", icon: <SiLeetcode size={24} /> },
-          ].map((cert, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="premium-card group flex items-center space-x-6 p-6 border border-white/5 hover:border-[var(--accent)]/30 transition-all duration-500"
-            >
-              <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center text-[var(--text-dim)] group-hover:text-[var(--accent)] group-hover:bg-[var(--accent)]/5 transition-all duration-500 shrink-0">
-                {cert.icon}
-              </div>
-              <div>
-                <h4 className="text-base font-medium text-white group-hover:text-[var(--accent)] transition-colors duration-500">{cert.title}</h4>
-                <p className="text-xs uppercase tracking-widest text-[var(--text-dim)] mt-1 font-bold glass-text">{cert.org}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      {/* Certifications Ecosystem */}
+      <section className="border-t border-[var(--border-color)] py-32 z-10 relative bg-[var(--bg-secondary)] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-8">
+          <h2 className="text-sm uppercase tracking-[0.2em] text-[var(--accent)] font-bold mb-16 text-center">
+            Cloud & Ecosystem
+          </h2>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: "Associate Cloud Engineer", org: "Google Cloud", icon: <SiGooglecloud size={28} /> },
+              { title: "Azure Data Scientist", org: "Microsoft", icon: <SiMicrosoftazure size={28} /> },
+              { title: "Data Engineer Associate", org: "Databricks", icon: <SiDatabricks size={28} /> },
+              { title: "Generative AI Professional", org: "Oracle Cloud", icon: <SiOracle size={28} /> },
+              { title: "Certified Network Associate", org: "Cisco (CCNA)", icon: <div className="text-sm font-bold">CCNA</div> },
+              { title: "Top 10 Programmer", org: "InterviewBit", icon: <SiLeetcode size={28} /> },
+            ].map((cert, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="group flex items-center space-x-6 p-8 rounded-3xl bg-[var(--bg-primary)] border border-[var(--border-color)] hover:border-[var(--accent)] transition-all duration-300"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors shadow-sm border border-[var(--border-color)] shrink-0">
+                  {cert.icon}
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[var(--text-primary)] leading-tight">{cert.title}</h4>
+                  <p className="text-xs uppercase tracking-widest text-[var(--text-secondary)] mt-2 font-bold">{cert.org}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
-        <div className="mt-20 flex flex-wrap justify-center gap-12 text-[var(--text-dim)] opacity-20 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-1000">
-          <SiGooglecloud size={32} />
-          <SiMicrosoftazure size={32} />
-          <SiDatabricks size={32} />
-          <SiOracle size={32} />
-          <SiLeetcode size={32} />
+          <div className="mt-32 flex flex-wrap justify-center gap-16 text-[var(--text-dim)] opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-700">
+            <SiGooglecloud size={40} className="hover:text-blue-500 hover:scale-110 transition-all" />
+            <SiMicrosoftazure size={40} className="hover:text-blue-600 hover:scale-110 transition-all" />
+            <SiDatabricks size={40} className="hover:text-red-500 hover:scale-110 transition-all" />
+            <SiOracle size={40} className="hover:text-red-600 hover:scale-110 transition-all" />
+            <SiLeetcode size={40} className="hover:text-orange-500 hover:scale-110 transition-all" />
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-12 px-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-[var(--text-dim)] text-xs font-medium tracking-widest uppercase">
+      <footer className="py-12 px-8 bg-[var(--bg-primary)]">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-[var(--text-secondary)] text-xs font-bold tracking-widest uppercase">
           <p>© {new Date().getFullYear()} Kaustubh Pathak</p>
-          <div className="flex space-x-8">
-            <Link href="https://github.com/kaustubh0777" target="_blank" className="hover:text-white transition-colors">GitHub</Link>
-            <Link href="https://www.linkedin.com/in/kaustubhpathak11/" target="_blank" className="hover:text-white transition-colors">LinkedIn</Link>
-            <Link href="https://twitter.com/thisiskaustubh1" target="_blank" className="hover:text-white transition-colors">Twitter</Link>
+          <div className="flex space-x-10">
+            <Link href="https://github.com/kaustubh0777" target="_blank" className="hover:text-[var(--accent)] transition-colors hover-underline pb-1">GitHub</Link>
+            <Link href="https://www.linkedin.com/in/kaustubhpathak11/" target="_blank" className="hover:text-[var(--accent)] transition-colors hover-underline pb-1">LinkedIn</Link>
+            <Link href="https://twitter.com/thisiskaustubh1" target="_blank" className="hover:text-[var(--accent)] transition-colors hover-underline pb-1">Twitter</Link>
           </div>
         </div>
       </footer>

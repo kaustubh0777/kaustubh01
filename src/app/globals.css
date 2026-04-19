@@ -5,71 +5,83 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;700&display=swap');
 
 :root {
-  --bg-primary: #000000;
-  --bg-secondary: #0a0a0a;
-  --accent: #00f2ff;
-  --accent-muted: rgba(0, 242, 255, 0.1);
+  /* Light Theme (Default) */
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  /* Brand Accent: vibrant orange */
+  --accent: #ff5e00;  
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --text-dim: #888888;
+  --border-color: rgba(0, 0, 0, 0.05);
+}
+
+html.dark, .dark {
+  /* Dark Theme */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  /* Brand Accent: matching orange */
+  --accent: #ff5e00;
   --text-primary: #ffffff;
   --text-secondary: #a0a0a0;
   --text-dim: #606060;
-  --border-color: rgba(255, 255, 255, 0.1);
+  --border-color: rgba(255, 255, 255, 0.08);
 }
 
 body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   font-family: 'Outfit', sans-serif;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @layer components {
+  /* Sleek, massive border-radius minimal cards */
   .premium-card {
-    @apply bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 transition-all duration-500 hover:border-[var(--accent)] hover:shadow-[0_0_30px_rgba(0,242,255,0.1)];
+    @apply bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-[32px] p-8 md:p-12 transition-all duration-500 ease-out;
+  }
+  
+  .premium-card:hover {
+    @apply -translate-y-2 border-[var(--accent)] shadow-xl;
   }
 
   .glass-nav {
-    @apply sticky top-0 z-50 bg-black/60 backdrop-blur-xl border-b border-white/5;
+    @apply sticky top-0 z-50 bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-[var(--border-color)];
   }
 
   .btn-premium {
-    @apply relative overflow-hidden px-8 py-3 bg-white text-black font-semibold rounded-full transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-[var(--accent)] hover:text-black;
+    @apply relative overflow-hidden px-8 py-3 bg-[var(--text-primary)] text-[var(--bg-primary)] font-semibold rounded-full transition-all duration-300 hover:scale-105 active:scale-95;
+  }
+  
+  .btn-outline {
+    @apply relative px-8 py-3 bg-transparent border border-[var(--border-color)] text-[var(--text-primary)] font-medium rounded-full transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)];
   }
 
-  .text-gradient {
-    @apply bg-gradient-to-r from-white via-white/80 to-[var(--text-secondary)] bg-clip-text text-transparent;
+  /* Focus text for large typography */
+  .focus-text {
+    @apply text-[var(--text-primary)] font-bold tracking-tighter;
   }
-
-  .glass-text {
-    @apply text-white/90 drop-shadow-[0_2px_10px_rgba(255,255,255,0.2)];
-    background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .shine-effect {
+  
+  /* Link hover animation */
+  .hover-underline {
     position: relative;
-    overflow: hidden;
+    display: inline-block;
   }
-
-  .shine-effect::after {
-    content: "";
+  
+  .hover-underline::after {
+    content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      to bottom right,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0) 40%,
-      rgba(255, 255, 255, 0.4) 50%,
-      rgba(255, 255, 255, 0) 60%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(-45deg);
-    animation: shine 4s infinite linear;
-    pointer-events: none;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+  }
+  
+  .hover-underline:hover::after {
+    @apply w-full;
   }
 }
 
@@ -91,15 +103,14 @@ body {
   background: var(--text-dim);
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
+/* Subtle entrance animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes shine {
-  0% { transform: translateX(-150%) translateY(-150%) rotate(-45deg); }
-  20%, 100% { transform: translateX(150%) translateY(150%) rotate(-45deg); }
+.animate-fade-in-up {
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes textShimmer {
@@ -107,24 +118,27 @@ body {
   100% { background-position: 200% center; }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-.shimmer-text {
+.glass-shimmer {
   background: linear-gradient(
-    90deg,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0.5) 25%,
-    #ffffff 50%,
-    rgba(255, 255, 255, 0.5) 75%,
-    #ffffff 100%
+    110deg,
+    var(--text-primary) 30%,
+    var(--accent) 50%,
+    var(--text-primary) 70%
   );
   background-size: 200% auto;
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: textShimmer 5s linear infinite;
+  animation: textShimmer 3s linear infinite;
+  display: inline-block;
 }
 
+.premium-icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
+.premium-icon:hover {
+  transform: translateY(-2px) scale(1.1);
+  filter: drop-shadow(0 4px 8px var(--accent));
+  color: var(--accent);
+}
