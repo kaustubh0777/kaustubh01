@@ -68,10 +68,10 @@ export default function Home() {
       {/* Background Soft Pattern Elements with Parallax */}
       <motion.div 
         style={{ y: backgroundY }}
-        className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+        className="absolute inset-0 z-0 overflow-hidden pointer-events-none will-change-transform"
       >
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-[var(--accent)]/5 rounded-full blur-[100px]" />
-        <div className="absolute top-[40%] -left-40 w-[500px] h-[500px] bg-[var(--text-secondary)]/5 rounded-full blur-[100px]" />
+        <div className="absolute -top-20 -right-20 w-[300px] h-[300px] md:-top-40 md:-right-40 md:w-[600px] md:h-[600px] bg-[var(--accent)]/5 rounded-full blur-[60px] md:blur-[100px] will-change-transform" />
+        <div className="absolute top-[40%] -left-20 w-[250px] h-[250px] md:-left-40 md:w-[500px] md:h-[500px] bg-[var(--text-secondary)]/5 rounded-full blur-[60px] md:blur-[100px] will-change-transform" />
       </motion.div>
 
       {/* Hero Section */}

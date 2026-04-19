@@ -24,7 +24,7 @@ export default function AppWrapper({ children }) {
         {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
-      <ReactLenis root options={{ lerp: 0.05, duration: 1.5, smoothTouch: true }}>
+      <ReactLenis root options={{ lerp: 0.05, duration: 1.5 }}>
         {children}
       </ReactLenis>
     </>
