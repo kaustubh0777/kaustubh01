@@ -11,6 +11,8 @@ const TextToSpeechReader = () => {
   useEffect(() => {
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       setSupported(true);
+      // Pre-fetch voices in the background immediately so they are available when the user clicks
+      window.speechSynthesis.getVoices();
       // Cancel any ongoing speech on mount/unmount to avoid ghost talking
       window.speechSynthesis.cancel();
     }
@@ -54,40 +56,35 @@ const TextToSpeechReader = () => {
     utterance.rate = 0.95; // Slightly slower pacing makes AI sound much more human
     utterance.pitch = 1.0;
 
-    const setVoiceAndSpeak = () => {
-      const voices = window.speechSynthesis.getVoices();
-      
-      // 1. Filter for Indian English voices
-      const indianVoices = voices.filter(v => v.lang.includes("en-IN") || v.lang.includes("en_IN"));
-      
-      // 2. Search for high-quality 'Premium' or 'Natural' markers
-      const premiumIndian = indianVoices.find(v => 
-        v.name.includes("Premium") || 
-        v.name.includes("Google") || 
-        v.name.includes("Natural") || 
-        v.name.includes("Rishi") || 
-        v.name.includes("Veena")
-      );
-      
-      if (premiumIndian) {
-        utterance.voice = premiumIndian;
-      } else if (indianVoices.length > 0) {
-        utterance.voice = indianVoices[0]; // Standard Indian Voice Fallback
-      } 
-      // If no Indian voices exist at all, the OS will automatically fallback to its default
+    const voices = window.speechSynthesis.getVoices();
+    
+    // 1. Broadly fetch English or Indian voices
+    const targetVoices = voices.filter(v => v.lang.includes("en-IN") || v.lang.includes("en_IN") || v.lang.includes("en-GB") || v.lang.includes("en-US"));
+    
+    // 2. Search for high-quality 'Premium', 'Google', 'Siri', or specific human voices
+    const premiumVoice = targetVoices.find(v => 
+      (v.lang.includes("IN") && (v.name.includes("Premium") || v.name.includes("Rishi") || v.name.includes("Veena"))) ||
+      v.name.includes("Google UK English Female") || 
+      v.name.includes("Google US English") ||
+      v.name.includes("Siri") ||
+      v.name.includes("Natural") ||
+      v.name.includes("Samantha")
+    );
+    
+    if (premiumVoice) {
+      utterance.voice = premiumVoice;
+    } else if (targetVoices.length > 0) {
+      // Prioritize Indian English fallback if premium not found
+      const indianFallback = targetVoices.find(v => v.lang.includes("IN"));
+      utterance.voice = indianFallback || targetVoices[0];
+    } 
 
-      utterance.onend = () => setIsSpeaking(false);
-      utterance.onerror = () => setIsSpeaking(false);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
 
-      window.speechSynthesis.speak(utterance);
-    };
-
-    // Browsers often load voices asynchronously on first request
-    if (window.speechSynthesis.getVoices().length === 0) {
-      window.speechSynthesis.onvoiceschanged = setVoiceAndSpeak;
-    } else {
-      setVoiceAndSpeak();
-    }
+    // CRITICAL for Mobile iOS/Android: We MUST call speak() synchronously inside the click handler stack.
+    // If we wait for an async onvoiceschanged listener on click, the mobile OS will block the audio playback.
+    window.speechSynthesis.speak(utterance);
   };
 
   if (!supported) return null;
