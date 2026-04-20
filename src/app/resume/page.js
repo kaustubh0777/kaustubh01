@@ -26,8 +26,8 @@ const ResumePage = () => {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="flex flex-wrap justify-center gap-6 mb-16"
         >
-          <a
-            href="/resume.pdf"
+            <a
+            href="/Kaustubh_Resume_v1_0.pdf"
             download
             className="btn-premium flex items-center gap-3 py-4 shine-effect"
           >
@@ -35,7 +35,7 @@ const ResumePage = () => {
           </a>
 
           <a
-            href="/resume.pdf"
+            href="/Kaustubh_Resume_v1_0.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-4 border border-white/20 rounded-full hover:bg-white/5 transition-all duration-300 font-medium tracking-widest uppercase text-xs flex items-center gap-3"
@@ -53,7 +53,7 @@ const ResumePage = () => {
         >
           <div className="relative w-full aspect-[8.5/11] overflow-hidden rounded-xl">
             <iframe
-              src="/resume.pdf"
+              src="/Kaustubh_Resume_v1_0.pdf"
               title="Kaustubh Pathak Resume"
               className="absolute inset-0 w-full h-full rounded-lg border-none opacity-90 hover:opacity-100 transition-opacity duration-500"
             ></iframe>
