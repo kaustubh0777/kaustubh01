@@ -1,11 +1,11 @@
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "./(components)/Navbar";
 import { ThemeProvider } from "./(components)/ThemeProvider";
 import AppWrapper from "./(components)/AppWrapper";
 import ChatbotFab from "./(components)/ChatbotFab";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({ subsets: ["latin"], display: "swap" });
 
 export const metadata = {
   title: "|Kaustubh Pathak|",
@@ -15,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={outfit.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <AppWrapper>
             <Navbar/>
