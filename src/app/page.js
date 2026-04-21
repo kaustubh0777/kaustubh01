@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { FaLinkedin, FaGithub, FaTwitter, FaQuoteLeft } from "react-icons/fa";
 import { SiLeetcode, SiGooglecloud, SiMicrosoftazure, SiDatabricks, SiOracle } from "react-icons/si";
 import Typewriter from "./(components)/Typewriter";
 import { playClickSound, playHoverSound } from "../utils/audio";
@@ -18,6 +18,27 @@ export default function Home() {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  // Animation Variants for staggering
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const fadeInUpItem = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    },
+  };
 
   const experiences = [
     {
@@ -63,6 +84,28 @@ export default function Home() {
     { title: "Top 35 Programmer", organization: "GeeksforGeeks", description: "Ranked among 2,000+ competitive programmers." },
   ];
 
+  const quotes = [
+    { text: "If you're dreaming, make sure you dream big.", lang: "English • English" },
+    { text: "यदि आप सपना देख रहे हैं, तो बड़े सपने देखें।", lang: "Hindi • हिन्दी" },
+    { text: "夢を見るなら、大きく見なさい。", lang: "Japanese • 日本語" },
+    { text: "Si vous rêvez, assurez-vous de rêver grand.", lang: "French • Français" },
+    { text: "Si estás soñando, asegúrate de soñar en grande.", lang: "Spanish • Español" },
+    { text: "Wenn du träumst, dann träume groß.", lang: "German • Deutsch" },
+    { text: "Se sogni, assicurati di sognare in grande.", lang: "Italian • Italiano" },
+    { text: "Если мечтаешь, мечтай о великом.", lang: "Russian • Русский" },
+    { text: "如果你在梦想，一定要梦想大一些。", lang: "Chinese • 中文" },
+    { text: "Se você está sonhando, certifique-se de sonhar grande.", lang: "Portuguese • Português" }
+  ];
+
+  const [quoteIndex, setQuoteIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setQuoteIndex((prev) => (prev + 1) % quotes.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [quotes.length]);
+
   return (
     <main ref={containerRef} className="min-h-screen bg-[var(--bg-primary)] selection:bg-[var(--accent)] selection:text-white transition-colors duration-300">
       {/* Background Soft Pattern Elements with Parallax */}
@@ -70,8 +113,8 @@ export default function Home() {
         style={{ y: backgroundY }}
         className="absolute inset-0 z-0 overflow-hidden pointer-events-none will-change-transform"
       >
-        <div className="hidden md:block absolute -top-20 -right-20 w-[300px] h-[300px] md:-top-40 md:-right-40 md:w-[600px] md:h-[600px] bg-[var(--accent)]/5 rounded-full blur-[60px] md:blur-[100px] will-change-transform" />
-        <div className="hidden md:block absolute top-[40%] -left-20 w-[250px] h-[250px] md:-left-40 md:w-[500px] md:h-[500px] bg-[var(--text-secondary)]/5 rounded-full blur-[60px] md:blur-[100px] will-change-transform" />
+        <div className="hidden md:block absolute -top-20 -right-20 w-[300px] h-[300px] md:-top-40 md:-right-40 md:w-[600px] md:h-[600px] bg-[var(--accent)]/10 rounded-full blur-[60px] md:blur-[120px] opacity-20 will-change-transform" />
+        <div className="hidden md:block absolute top-[40%] -left-20 w-[250px] h-[250px] md:-left-40 md:w-[500px] md:h-[500px] bg-blue-500/10 rounded-full blur-[60px] md:blur-[120px] opacity-20 will-change-transform" />
       </motion.div>
 
       {/* Hero Section */}
@@ -134,6 +177,57 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Quote Section */}
+      <section className="py-32 px-8 relative z-10 overflow-hidden bg-[var(--bg-primary)]">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+          className="max-w-4xl mx-auto text-center"
+        >
+          <motion.div
+            variants={fadeInUpItem}
+            className="mb-12 flex justify-center"
+          >
+            <FaQuoteLeft size={50} className="text-[var(--accent)] opacity-20" />
+          </motion.div>
+          
+          <div className="min-h-[250px] flex flex-col items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={quoteIndex}
+                initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full"
+              >
+                <h2 className="text-3xl md:text-5xl lg:text-7xl font-medium tracking-tight leading-tight glass-shimmer italic px-4">
+                  &quot;{quotes[quoteIndex].text}&quot;
+                </h2>
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-xs uppercase tracking-[0.4em] text-[var(--accent)] mt-12 font-bold opacity-60"
+                >
+                  {quotes[quoteIndex].lang}
+                </motion.p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <motion.div 
+            initial={{ width: 0 }}
+            whileInView={{ width: "120px" }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="h-px bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent mx-auto mt-20"
+          />
+        </motion.div>
+      </section>
+
       {/* Experience Section */}
       <section id="experience" className="max-w-7xl mx-auto px-8 py-32 z-10 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
@@ -151,14 +245,17 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="lg:col-span-7 space-y-12">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="lg:col-span-7 space-y-12 relative"
+          >
             {experiences.map((exp, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                variants={fadeInUpItem}
                 className="premium-card group"
               >
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-6">
@@ -182,7 +279,7 @@ export default function Home() {
                 </ul>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -200,14 +297,17 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 relative"
+          >
             {skills.map((skill, idx) => (
               <motion.div 
                 key={idx} 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                variants={fadeInUpItem}
                 className="premium-card group"
               >
                 <h4 className="text-2xl font-bold text-[var(--text-primary)] mb-8">
@@ -225,7 +325,7 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -235,14 +335,17 @@ export default function Home() {
           <h2 className="text-sm uppercase tracking-[0.2em] text-[var(--accent)] font-bold mb-4">Recognitions</h2>
           <h3 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] tracking-tighter glass-shimmer">Awards & Impact</h3>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 relative"
+        >
           {awards.map((award, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              variants={fadeInUpItem}
               className="premium-card flex flex-col justify-center text-center items-center group"
             >
               <h4 className="text-[var(--accent)] text-xs uppercase tracking-[0.2em] font-bold mb-6">
@@ -254,7 +357,7 @@ export default function Home() {
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* Certifications Ecosystem */}
@@ -264,7 +367,13 @@ export default function Home() {
             Cloud & Ecosystem
           </h2>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative"
+          >
             {[
               { title: "Associate Cloud Engineer", org: "Google Cloud", icon: <SiGooglecloud size={28} /> },
               { title: "Azure Data Scientist", org: "Microsoft", icon: <SiMicrosoftazure size={28} /> },
@@ -275,10 +384,7 @@ export default function Home() {
             ].map((cert, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                variants={fadeInUpItem}
                 className="group flex items-center space-x-6 p-8 rounded-3xl bg-[var(--bg-primary)] border border-[var(--border-color)] hover:border-[var(--accent)] transition-all duration-300"
               >
                 <div className="w-16 h-16 rounded-2xl bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors shadow-sm border border-[var(--border-color)] shrink-0">
@@ -290,15 +396,21 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="mt-32 flex flex-wrap justify-center gap-16 text-[var(--text-dim)] opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-700">
-            <SiGooglecloud size={40} className="hover:text-blue-500 hover:scale-110 transition-all" />
-            <SiMicrosoftazure size={40} className="hover:text-blue-600 hover:scale-110 transition-all" />
-            <SiDatabricks size={40} className="hover:text-red-500 hover:scale-110 transition-all" />
-            <SiOracle size={40} className="hover:text-red-600 hover:scale-110 transition-all" />
-            <SiLeetcode size={40} className="hover:text-orange-500 hover:scale-110 transition-all" />
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="mt-32 flex flex-wrap justify-center gap-16 text-[var(--text-dim)] opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-700"
+          >
+            <SiGooglecloud size={40} className="hover:text-blue-500 hover:scale-110 transition-all cursor-pointer" />
+            <SiMicrosoftazure size={40} className="hover:text-blue-600 hover:scale-110 transition-all cursor-pointer" />
+            <SiDatabricks size={40} className="hover:text-amber-600 hover:scale-110 transition-all cursor-pointer" />
+            <SiOracle size={40} className="hover:text-red-600 hover:scale-110 transition-all cursor-pointer" />
+            <SiLeetcode size={40} className="hover:text-[var(--accent)] hover:scale-110 transition-all cursor-pointer" />
+          </motion.div>
         </div>
       </section>
 

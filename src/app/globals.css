@@ -7,24 +7,24 @@
   /* Light Theme (Default) */
   --bg-primary: #f8f9fa;
   --bg-secondary: #ffffff;
-  /* Brand Accent: vibrant orange */
-  --accent: #ff5e00;  
+  /* Brand Accent: Sophisticated Indigo */
+  --accent: #4f46e5;  
   --text-primary: #111111;
-  --text-secondary: #555555;
-  --text-dim: #888888;
+  --text-secondary: #4b5563;
+  --text-dim: #9ca3af;
   --border-color: rgba(0, 0, 0, 0.05);
 }
 
 html.dark, .dark {
-  /* Dark Theme */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  /* Brand Accent: matching orange */
-  --accent: #ff5e00;
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
-  --text-dim: #606060;
-  --border-color: rgba(255, 255, 255, 0.08);
+  /* Dark Theme: Midnight Cobalt */
+  --bg-primary: #020617;
+  --bg-secondary: #0f172a;
+  /* Brand Accent: Electric Indigo */
+  --accent: #6366f1;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
+  --border-color: rgba(99, 102, 241, 0.1);
 }
 
 body {
